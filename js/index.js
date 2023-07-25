@@ -15,17 +15,25 @@ form.addEventListener("submit", (event) => {
     const existe = listaItens.find(n => n.nome === itens.nome )
     
     if (existe) {
-        console.log("existe");
+
+        itens.id = existe.id
         
+        atualizaElemento(itens)
+
+        listaItens[existe.id] = itens
+
     } else {
-        console.log("não");
+        
+        itens.id = listaItens.length
+
+        createElement(itens)
+
+        listaItens.push(itens)
+
     }
-    
-    listaItens.push(itens)
+ 
     
     localStorage.setItem("itens",JSON.stringify(listaItens))
-
-    createElement(itens)
 
     form.reset()
 } )
@@ -37,14 +45,15 @@ function createElement(itens) {
 
     const strong = document.createElement("strong")
     strong.innerHTML = itens.quantidade
+    strong.dataset.id = itens.id
     li.appendChild(strong)
 
     li.innerHTML += itens.nome
 
     ul.appendChild(li) 
 
-
 }
 
-
-
+function atualizaElemento(item) {
+    document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade
+}
