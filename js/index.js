@@ -47,8 +47,9 @@ function createElement(itens) {
     strong.innerHTML = itens.quantidade
     strong.dataset.id = itens.id
     li.appendChild(strong)
-
     li.innerHTML += itens.nome
+
+    li.appendChild(buttonRemove())
 
     ul.appendChild(li) 
 
@@ -56,4 +57,20 @@ function createElement(itens) {
 
 function atualizaElemento(item) {
     document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade
+}
+
+function buttonRemove() {
+
+    const buttonRemove = document.createElement("button")
+    buttonRemove.innerHTML ="X"
+
+    buttonRemove.addEventListener("click", function name(params) {
+        deleteElemento(this.parentNode)
+    })
+
+    return buttonRemove
+}
+
+function deleteElemento(tag) {
+    tag.remove()
 }
